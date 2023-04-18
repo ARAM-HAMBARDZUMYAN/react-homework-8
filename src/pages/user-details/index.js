@@ -1,7 +1,7 @@
-const UserDetails = () => {  // {children}
+const Admin = () => {  // {children}
     return <div>
-      user Details
+    Hello Admin
     </div>
   }
-  export default UserDetails
+  export default Admin
   

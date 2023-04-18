@@ -50,9 +50,17 @@ const RegisterUser = () => {
       isValidation = false
       errors.email = 'Email is required'
     }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      isValidation = false
+      errors.email= 'Invalid email address';
+    }
     if (!formData.password.trim().length) {
       isValidation = false
       errors.password = 'Password is required'
+    }
+    if (formData.password.trim().length<8) {
+      isValidation = false
+      errors.password = 'Password must be at least 8 characters long'
     }
     if (!formData.confirmPassword.trim().length) {
       isValidation = false
@@ -62,7 +70,7 @@ const RegisterUser = () => {
       isValidation = false
       errors.confirmPassword = `Confirm Password doe's not much with password`
     }
-    if (!formData.specialist.length) {
+    if (formData.specialist==="") {
       isValidation = false
       errors.specialist = 'Specialist is required'
     }
@@ -109,6 +117,7 @@ const RegisterUser = () => {
           <label className="details">Full Name</label>
           <input type="text" name={'firstName'} placeholder="Enter your name" required onChange={handleChange} 
              value={formData.firstName}
+             style={{borderColor:errorData.firstName? "red":""}}
           />
            {errorData.firstName ? <p>{errorData.firstName}</p> : null}
         </div>
@@ -116,6 +125,7 @@ const RegisterUser = () => {
           <label className="details">Last name</label>
           <input type="text"  name={'lastName'} placeholder="Enter your username" required onChange={handleChange}
              value={formData.lastName}
+             style={{borderColor:errorData.lastName? "red":""}}
           />
            {errorData.lastName ? <p>{errorData.lastName}</p> : null}
         </div>
@@ -123,6 +133,7 @@ const RegisterUser = () => {
           <label className="details">Email</label>
           <input type="text"  name={'email'}  placeholder="Enter your email" required onChange={handleChange}
 value={formData.email}
+style={{borderColor:errorData.email? "red":""}}
           />
            {errorData.email ? <p>{errorData.email}</p> : null}
         </div>
@@ -130,6 +141,7 @@ value={formData.email}
           <label className="details">Age</label>
           <input type="text"   name={'age'} placeholder="Enter your number" required onChange={handleChange}
               value={formData.age}
+              style={{borderColor:errorData.age? "red":""}}
           />
            {errorData.age ? <p>{errorData.age}</p> : null}
         </div>
@@ -137,6 +149,7 @@ value={formData.email}
           <label className="details">Password</label>
           <input type="password" name={'password'}  placeholder="Enter your password" required onChange={handleChange}
       value={formData.password}
+      style={{borderColor:errorData.password? "red":""}}
           /> 
           {errorData.password ? <p>{errorData.password}</p> : null}
         </div>
@@ -144,17 +157,20 @@ value={formData.email}
           <label className="details">Confirm Password</label>
           <input type="password" name={'confirmPassword'} placeholder="Confirm your password" required onChange={handleChange}
               value={formData.confirmPassword}
+              style={{borderColor:errorData.confirmPassword? "red":""}}
           />
            {errorData.confirmPassword ? <p>{errorData.confirmPassword}</p> : null}
         </div>
       <div className="input-box">
       <label className="details">Specialist
-          <select onChange={handleChange} name="specialist" defaultValue="Select Specialist">
+          <select onChange={handleChange} name="specialist" defaultValue="Select Specialist" style={{borderColor:errorData.specialist? "red":""}}>
+          <option value="">Select an option</option>
               <option value="Frontend">Frontend</option>
               <option value="Backend">Backend</option>
               <option value="UI/UX Design">UI/UX Design</option>
           </select>
       </label>
+      {errorData.specialist ? <p>{errorData.specialist}</p> : null}
        </div>
        <div className="gender-details">
           <span className="gender-title">Gender</span>

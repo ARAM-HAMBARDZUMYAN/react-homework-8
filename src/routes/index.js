@@ -2,15 +2,15 @@ import Login from "../pages/loginform"
 import RegisterUser from "../pages/registrationform"
 import UsersList from "../pages/userslist"
 export const RouterNames = {
-    HOME: '/',
+    Registration: '/',
     USERS_LIST: '/users-list',
     LOGIN: '/login',
-   USER_DETAILS:'/user-details'
+   Home:'/user-details'
   } 
   
   export const  PublicRoutes = [
     {
-      path: RouterNames.HOME,
+      path: RouterNames.Registration,
       component: <RegisterUser/>,
       linkName: 'Registration'
     },

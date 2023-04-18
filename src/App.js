@@ -1,12 +1,13 @@
 
 import React from 'react';
+import "./App.css"
 import {Routes, Route, Navigate, NavLink} from 'react-router-dom'
 import {RouterNames} from "./routes";
 import RegisterUser from './pages/registrationform';
 import UsersList from './pages/userslist';
 import Login from './pages/loginform';
 import { useState,useEffect } from 'react';
-import UserDetails from './pages/user-details';
+import Admin from './pages/user-details';
 
 function App() {
   const [token, setToken] = useState('')
@@ -14,7 +15,7 @@ function App() {
 
 
   useEffect(() => {
-    const tokenData = localStorage.getItem("mytoken");
+    const tokenData = localStorage.getItem("usertoken");
     if (tokenData) {
       setToken(tokenData)
     }
@@ -25,37 +26,40 @@ function App() {
 
 
 
-    <header>
-     
-      <ul>
+    <header className='header'>
+     <nav className='nav'>
+      <ul className='nav-list'>
         {token ?
-          <li>
-            <NavLink to={RouterNames.USER_DETAILS}>User details</NavLink>
+        <>
+          <li className='nav-item'>
+            <NavLink className={'nav-link'} to={RouterNames.Home}>Admin</NavLink>
           </li>
-          
+          <li className='nav-item'>
+              <NavLink className={'nav-link'} to={RouterNames.USERS_LIST}>Users</NavLink>
+            </li>
+            </>
           :
           <>
-            <li>
-              <NavLink to={RouterNames.HOME}>Registration</NavLink>
+            <li className='nav-item'>
+              <NavLink className={'nav-link'} to={RouterNames.Registration}>Registration</NavLink>
             </li>
-            <li>
-              <NavLink to={RouterNames.USERS_LIST}>Users</NavLink>
-            </li>
-            <li>
-              <NavLink to={RouterNames.LOGIN}>Login</NavLink>
+            <li className='nav-item'>
+              <NavLink className={'nav-link'} to={RouterNames.LOGIN}>Login</NavLink>
             </li>
           </>
         }
       </ul>
+      </nav>
     </header>
 
     {token ?
       <Routes>
-      <Route element={<UserDetails/>} path={RouterNames.USER_DETAILS}/>
+      <Route element={<Admin/>} path={RouterNames.Home}/>
+      <Route element={<UsersList/>} path={RouterNames.USERS_LIST}/>
         <Route element={<Navigate to={'/'}/>} path='*'/>
       </Routes> :
       <Routes>
-        <Route element={<RegisterUser/>} path={RouterNames.HOME}/>
+        <Route element={<RegisterUser/>} path={RouterNames.Registration}/>
         <Route element={<UsersList/>} path={RouterNames.USERS_LIST}/>
         <Route element={<Login/>} path={RouterNames.LOGIN}/>
         <Route element={<Navigate to={'/'}/>} path='*'/>
